@@ -339,8 +339,8 @@ en seulement quelques jours, où nous nous devions d'être productifs.
 Nous avons donc essayé de faire des choix technologiques qui seraient à la fois
 nouveaux pour nous, et que nous pourrions maîtriser rapidement.
 
-Nous avons donc décidé d'utiliser les langages **Javascript** et **PHP**, et la base
-de données **MySQL** que nous maîtrisions déjà. Nous avons décidé d'une **interface
+Nous avons donc décidé d'utiliser les langages **Javascript** et **PHP**, la base
+de données **MySQL**, et le framework CSS **bootstrap**, que nous maîtrisions déjà. Nous avons décidé d'une **interface
 graphique simple** voire sommaire, composée du nombre minimal d'écrans différents
 nécessaires à remplir le cahier des charges. Comme c'est courant dans ce genre
 d'évènements, la relecture de code est passée au second plan, et nous nous sommes
@@ -349,9 +349,10 @@ attribués des rôles bien définis dont nous ne sortirions pas: à moi le *fron
 
 En contrepartie, nous nous sommes autorisé un *front-end* en **AngularJS**,
 et un *back-end* fondé entièrement sur des **APIs REST**, ce qui différait des
-développements habituels de l'ACR.
+développements habituels de l'ACR. Nous avons aussi été amenés à utiliser et tester
+[l'API Javascript de géolocalisation des navigateurs](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation).
 
-AngularJS, le framework d'application *mono-page*
+**AngularJS**, le framework d'application *mono-page*
 de Google, permet à la fois le prototypage rapide d'application dont nous avions
 besoin, et une  bonne maintenabilité du code. Son langage de template est très
 simple, et il n'y a presque pas de *boilerplate* à écrire pour une nouvelle
@@ -360,11 +361,81 @@ jugé que ce serait un bon choix à la fois pour apprendre à utiliser un nouvea
 framework, et compléter le développement de notre application (assez simple)
 dans le temps imparti.
 
-![Page d’accueil d’Ophyr](images/ophyr.png)
+Comme on l'a vu plus haut, la création d'**APIs** d'accès aux données
+était un véritable enjeu chez ERDF, et réaliser de bonnes APIs, simples mais
+assez expressives était un très bon objectif à se fixer pour ces deux jours.
+Mon collègue avait rarement été amené à réaliser toute une API cohérente auparavant,
+et cette occasion était à saisir.
+
+##### Interface graphique
+
+![Premier écran de l'application, dans sa version présentée à la fin du hackathon](images/ophyr-small.png)
+
+![second écran](images/ophyr-fiche-poste-annotations-small.png)
+
+Comme nous l'avions dit, nous voulions une interface très simple.
+Nous avons décidé de deux écrans successifs à afficher:
+
+ 1. Un premier qui contient une liste des postes HTA-BT environnants et leur état,
+ dans laquelle l'utilisateur peut faire une recherche.
+ 1. Un deuxième qui contient toutes les informations nécessaires sur le poste,
+ sous forme de tableau, et permet de visualiser les notes laissées par les autres
+ techniciens, ainsi que de laisser son propre commentaire.
 
 
+#### Déroulement des deux jours de développement
+Le développement devait commencer très vite, et nous nous y sommes donc mis
+dès que nous avons finalisé nos choix techniques, au milieu du premier jour.
+
+##### Jour 1
+Nous avons commencé par la réalisation de l'écran d'accueil, qui liste les postes
+environnants. Le développement s'est bien passé, notre peur d'être submergé face
+à ce nouveau mode de fonctionnement s'est vite estompée. À la fin du premier jour,
+l'écran d'accueil listait les postes environnants et leur état dans une interface
+graphique adaptée aux petits écrans, le premier *endpoint* de notre API était
+fonctionnel, grâce à un responsable informatique d'ERDF présent à l'évènement
+qui nous a indiqué comment récupérer les données de géolocalisation des postes
+sur le réseau.
+
+##### Jour 2
+Le second jour a été intense, mais sans grosse surprise.
+Le plus dur fut probablement d'apprendre à faire fonctionner le système
+de [*routes*](https://docs.angularjs.org/api/ngRoute/service/$route) d'angular,
+que je n'avais jamais utilisé avant. Mais une fois maîtrisé, il permet d'avoir
+une belle application mono-page, qui se charge rapidement, et qui associe à chaque
+état de l'application une URL unique et partageable. Mon collègue a aussi bien
+avancé sur les APIs, de manière que nous étions assez satisfaits de notre application
+à la fin de la journée pour arrêter le développement et commencer la préparation
+de la démonstration que nous allions devoir faire aux autres participants.
+
+### Présentation finale
+Nous avons présenté notre résultat devant un jury composé de membres du groupe ERDF
+et d'experts d'entreprises partenaires.
+
+Malheureusement, nous n'avons pas gagné de prix, ceux-ci ayant été attribués à de
+plus grosses équipes ayant travaillé à des projets plus ambitieux, quitte à ne
+pas présenter de démonstration fonctionnelle.
+
+Cependant, le résultat est très positif pour nous, puisque nous avons atteint notre
+objectif en deux jours, et nous espérons maintenant que l'application sera
+finalisée, testée, puis mise sur le terrain.  
+
+##### Publication du code
+Nous avons depuis publié tout le code source qui pouvait l'être sans enfreindre
+la politique de partage des données de l'entreprise. Le résultat est sur Github
+dans le dépôt [lovasoa/HTAgBT](https://github.com/lovasoa/HTAgBT).
 
 ## Méthodes innovantes de visualisation de données
+Mon maître de stage était très intéressé par l'innovation au sein de l'ACR en
+général, et les méthodes innovantes de visualisationde données en particulier.
+
+J'ai ainsi été amené à réaliser deux applications de taille modeste, mais au
+rendu final assez intéressant, destinées à offrir une manière plus intuitive,
+plus rapide, et plus esthétique d'accéder à certaines données.
+
+Ces réalisations étaient principalement destinées aux démonstrations à l'intention
+des visiteurs de l'ACR, mais aussi du personnel.
+
 ### Courbe de charge "en horloge"
 ![Horloge de charge](images/chargerond.png)
 
