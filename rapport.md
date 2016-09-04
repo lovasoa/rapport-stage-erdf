@@ -437,7 +437,56 @@ Ces réalisations étaient principalement destinées aux démonstrations à l'in
 des visiteurs de l'ACR, mais aussi du personnel.
 
 ### Courbe de charge "en horloge"
-![Horloge de charge](images/chargerond.png)
+L'ACR est en charge d'un certain nombre de postes sources. Chacun fournit une
+puissance qui varie en fonction de la demande énergétique des clients qui
+dépendent du poste.
+
+Dans la base de données *EtaReso*, on trouve les valeurs de puissance totale
+de chaque poste source, et la valeur cumulée pour tous les postes de l'ACR à
+intervalle régulier.
+
+L'objectif était ici d'inventer une manière innovante et attrayante de présenter
+ces données, qui pourrait être présentée notamment sur les écrans de l'agence et
+au public en visite à l'ACR.
+
+#### Idée générale
+L'idée fut de réaliser un petit *widget*, qui pourrait être intégré dans d'autres
+pages, et qui prendrait la forme d'une horloge analogique.
+
+Cette horloge, au lieu d'indiquer simplement l'heure, indiquerait aussi
+l'historique récent de la puissance distribuée. Cela permettrait de visualiser
+très rapidement les pics de consommation et la situation globale.
+
+L'horloge prend la forme d'un disque noir. Seule l'aiguille des heures est
+représentée. Toutes les 5 minutes, l'aiguille laisse une nouvelle trace en forme
+de barre sur le cadran. La taille et la couleur de la trace dépendent de la
+puissance distribuée. Toutes les douzes heures, à midi et à minuit, les
+anciennes traces sont effacées.
+
+Le résultat est comme suit.
+
+![Horloge de charge, indiquant la puissance totale distribuée par l'ACR](images/chargerond.png)
+
+#### Réalisation
+J'ai décidé de découper ce petit projet en deux:
+
+ * Une bibliothèque javascript générique pour ce type de représentation graphique "en horloge".
+ * Un petit script qui récupère les données et les fournit à la bibliothèque.
+
+##### Bibliothèque *roundplot*
+La bibliothèque est une bibliothèque javascript générique; elle fonctionne avec
+n'importe quelle série temporelle. Elle est écrite en javascript, suivant la
+syntaxe [ecmascript 6](https://fr.wikipedia.org/wiki/ECMAScript).
+Elle permet à l'utilisateur de définir le temps représenté sur le cadran (une minute, une heure, une journée...), la manière de formater les dates et les nombres, et
+la palette de couleurs à utiliser.
+
+Elle se fonde elle-même sur la bibliothèque javascript [D3.js](https://d3js.org/),
+qui permet de créer des documents dynamiques et réactifs.
+L'horloge elle-même est rendue dans le navigateur sous forme d'un
+[SVG](https://www.w3.org/Graphics/SVG/) (un dessin vectoriel).
+
+J'ai publié cette bibliothèque sur Github:
+[https://github.com/lovasoa/roundplot](https://github.com/lovasoa/roundplot)
 
 ### Les pingouins: "Ensemble, refroidissons la planète"
 ![Ensemble, refroidissons la planète](images/pingouins.png)
