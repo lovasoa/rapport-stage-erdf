@@ -475,7 +475,7 @@ J'ai décidé de découper ce petit projet en deux:
 
 Le petit résultat final a été intégré à la liste des outils de l'ACR, il
 est disponible pour tout le monde sur l'intranet et a été intégré sous forme
-de *widget* en petit format à la page d'accueil du portail intranet de l'agence. 
+de *widget* en petit format à la page d'accueil du portail intranet de l'agence.
 
 ##### Bibliothèque *roundplot*
 La bibliothèque est une bibliothèque javascript générique; elle fonctionne avec
@@ -493,6 +493,23 @@ J'ai publié cette bibliothèque sur Github:
 [https://github.com/lovasoa/roundplot](https://github.com/lovasoa/roundplot)
 
 ### Les pingouins: "Ensemble, refroidissons la planète"
+L'idée du *projet pingouins* a germé lors d'une réunion mensuelle de l'agence,
+la première à laquelle j'ai été convié. Sylvain Jouhanneau, le directeur de l'ACR, faisait
+remarquer que les outils dont nous disposions, bien qu'en général très puissants,
+étaient très compliqués, et avaient une interface peu attractive, ce qui les rendaient
+impossible à présenter au public à des fins de sensibilisation. Il a ensuite
+évoqué une visite profesionnelle qu'il avait faite dans un centre de distribution
+électrique au Japon. Là-bas, ils avaient créé à destination du grand public un outil
+graphique amusant dans l'objectif de sensibiliser les ménages au lien entre leur
+consommation énergétique et le réchauffement climatique. L'outil japonais consiste en un
+simple écran sur lequel est présentée une petite animation représentant cinq pingouins
+sur une petite banquise. Lorsque la consommation du ménage augmente, la banquise
+virtuelle fond, et les pingoins tombent à l'eau un par un. L'outil était simple et
+marquant, et avait plu partout où il avait été présenté.
+
+Notre projet était de produire une représentation dynamique du même type, avec la
+même dimension pédagogique et ludique à la fois, adaptée à notre agence de conduite. 
+
 ![Ensemble, refroidissons la planète](images/pingouins.png)
 
 ## WBO, tableau blanc interactif
