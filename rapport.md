@@ -473,6 +473,10 @@ J'ai décidé de découper ce petit projet en deux:
  * Une bibliothèque javascript générique pour ce type de représentation graphique "en horloge".
  * Un petit script qui récupère les données et les fournit à la bibliothèque.
 
+Le petit résultat final a été intégré à la liste des outils de l'ACR, il
+est disponible pour tout le monde sur l'intranet et a été intégré sous forme
+de *widget* en petit format à la page d'accueil du portail intranet de l'agence. 
+
 ##### Bibliothèque *roundplot*
 La bibliothèque est une bibliothèque javascript générique; elle fonctionne avec
 n'importe quelle série temporelle. Elle est écrite en javascript, suivant la
