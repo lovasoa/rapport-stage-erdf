@@ -508,9 +508,29 @@ virtuelle fond, et les pingoins tombent à l'eau un par un. L'outil était simpl
 marquant, et avait plu partout où il avait été présenté.
 
 Notre projet était de produire une représentation dynamique du même type, avec la
-même dimension pédagogique et ludique à la fois, adaptée à notre agence de conduite. 
+même dimension pédagogique et ludique à la fois, adaptée à notre agence de conduite.
 
-![Ensemble, refroidissons la planète](images/pingouins.png)
+#### Que représenter ?
+Une information très importante à connaître à l'ACR à tout moment est la charge
+totale de chacun des postes sources. Les situations de crise correspondent à des
+moments ou plusieurs postes sources doivent fournir une puissance très importante.
+Un bon indicateur de l'état de santé de l'ACR est donc la liste des postes sources,
+avec les puissances actuelles et souscrites associées. Il a donc été décidé de
+présenter cette information là dans notre représentation graphique innovante.
+
+#### Comment le présenter ?
+Nous avons décidé de garder le même animal que dans l'idée originale, pour son
+caractère mignon, et emblématique du réchauffement climatique.
+
+Ensuite venaient les questions d'ergonomie. Il fallait une représentation plaisante,
+amusante, globalement compréhensible par les visiteurs de l'agence même moins initiés,
+mais qui permette de se représenter en un clin d'œuil l'état général des postes de
+l'agence, l'état d'un poste en particulier, et si possible d'avoir accès aux données
+chiffrées.
+
+#### Résultat
+
+![Ensemble, refroidissons la planète: résultat final du projet pingouins. Sur cette capture d'écran, la souris survole le poste source "Clichy", et les informations associées sont affichées: on voit que le poste délivre environ 2MW de plus que la puissance souscrite qui lui est associée.](images/pingouins.png)
 
 ## WBO, tableau blanc interactif
 ![Tableau blanc interactif](images/wbo.png)
