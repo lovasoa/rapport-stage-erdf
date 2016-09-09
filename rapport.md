@@ -1,4 +1,19 @@
-# Rapport de stage
+---
+title:  'Ingénieur informatique stagiaire au sein d’ERDF pendant 6 mois'
+author: Ophir LOJKINE
+date: Été 2015
+abstract: |
+  La distribution de l'électricité en France représente une infrastructure gigantesque, performante, et nous est enviée par d'autres pays. L'entreprise ultra-leader dans le domaine, ERDF, génère et enregistre des quantités astronomiques de données chaque jour, et est en pleine mutation vers le numérique.
+
+  C'est dans ce contexte que j'ai décidé d'y effectuer mon stage de deuxième année à l'École Centrale de Nantes, en option informatique.
+
+  Ma mission principale consistait en la création d'un outil de prévision de la consommation électrique. Mais j'ai été amené à faire beaucoup plus, du développement web
+  à la réalisation d'application mobile, en passant par l'algorithmique.
+
+  J'ai pendant ce stage réalisé plusieurs projets, et en ai ébauché d'autres, qui j'espère continueront après mon départ.
+
+  Ce rapport détaille l'ensemble de mes missions et de mon parcours dans l'entreprise, et détaille les solutions techniques trouvées à chacun des problèmes rencontrés.
+---
 
 # Remerciements
 Je tiens à remercier mon maître de stage, Sylvain Jouhanneau,
@@ -527,6 +542,90 @@ amusante, globalement compréhensible par les visiteurs de l'agence même moins 
 mais qui permette de se représenter en un clin d'œuil l'état général des postes de
 l'agence, l'état d'un poste en particulier, et si possible d'avoir accès aux données
 chiffrées.
+
+J'ai donc décidé de présenter le tout sous forme d'une carte navigable de toute
+la région Île-de-France Est, avec à chaque emplacement de poste source un petit
+pingouin. L'état du pingouin dépend de la charge du poste source.
+
+ * Si le poste n'est pas utilisé du tout, ou très peu (il a été déchargé sur un
+autre, par exemple), alors le pingouin dort.
+ * Si le poste délivre une puissance comprise entre 20 et 70 pourcents de la
+puissance souscrite qui lui est associée, il a une expression neutre, et sa couleur
+varie du blanc au jaune.
+ * Entre 70% et 100% de la puissance souscrite, le pingouin prend un air triste,
+et devient orange.
+ * Si le poste source est utilisé au delà de sa puissance souscrite (ERDF paye
+une pénalité à RTE pour ce poste), le pingouin a l'air mort, et il est tout rouge.
+
+![Échelle graphique de l'état du pingouin en fonction de la charge du poste
+source](images/pingouins-echelle.png)
+
+Lorsque l'on clique sur un pingouin, sa *banquise* s'affiche en surbrillance
+sur la carte. Elle correspond à la zone géographique déservie par le poste,
+c'est-à-dire toute la zone dans laquelle il y a des habitations qui dépendent
+du poste.
+
+#### Réalisation technique et technologies utilisées
+
+##### Structure de l'application
+L'application est très simple, composée d'un *front-end* en javascript et un
+back-end en PHP.
+
+Le *front-end* est écrit en javascript simple, sans *framework*, et utilise la
+bibliothèque [leaflet](http://leafletjs.com/) pour le rendu de la carte navigable.
+Le fond de carte utilisé est celui d'[OpenStreetMap](https://www.openstreetmap.org/),
+une carte du monde libre et collaborative. Il utilise des
+[`XMLHttpRequest`](https://developer.mozilla.org/fr/docs/Web/API/XMLHttpRequest)
+pour communiquer avec le *back-end*.
+
+Le *back-end* en PHP est très simple aussi, il se contente de faire les requêtes
+à la base de données MySQL, de normaliser les résultats, et de les retourner
+au format JSON. La principale chose à normaliser est le format des coordonnées
+géographiques contenues dans la base de données. Elles sont enregistrées
+au format [Lambert93](https://fr.wikipedia.org/wiki/Projection_conique_conforme_de_Lambert),
+et non [GPS](https://fr.wikipedia.org/w/Global_Positioning_System).
+J'ai écrit une bibliothèque PHP pour convertir entre ces formats, et l'ai
+[publiée sur Github](https://github.com/lovasoa/lambert2gps-php). Elle
+est fondée sur [une autre bibliothèque libre](https://github.com/joffreykern/LambertToGps),
+écrite en `.NET`.
+
+##### Requête SQL
+Les informations nécessaires à l'affichage des pingouins sur la carte sont contenues
+dans la base de données `EtaReso`, dans les tables suivantes:
+
+ * `EVT_TM` : valeur des puissances instantannées des différents ouvrages du
+réseau, dont les postes sources.
+ * `EVT_TM_PADT` : puissances souscrites des postes.
+ * `OUVRAGE` : informations sur les postes de transformation du réseau. Les postes
+ sources ont le *type de poste* `PAGC`.
+ * `ELEMENT_TOPOLOGIQUE` : tous les éléments physiques du réseau, et leurs *coordonnées
+Lambert*.
+ * `TM` : permet d'obtenir l'unité des nombres retirés des tables `EVT_TM_*`.
+
+```SQL
+SELECT
+    PS.LIBELLE as POSTE_SOURCE,
+    PS.IDGDO AS GDO,
+    PUISS_SOUSC_TM.LIBELLE_TRANCHE AS LIBELLE_TRANCHE,
+    PADT.PS$heure/1000 AS PUISSANCE_SOUSCRITE,
+    TM_DATA.TM$heure/1000 AS PUISSANCE,
+    TOPO.GEOX AS X,
+    TOPO.GEOY AS Y,
+    PUISS_SOUSC_TM.UNITE_TM as UNITE
+  FROM `EtaReso`.TM AS PUISS_SOUSC_TM
+    LEFT JOIN `EtaReso`.EVT_TM AS TM_DATA ON TM_DATA.ID_TM = PUISS_SOUSC_TM.ID_VERSANT
+    LEFT JOIN `EtaReso`.EVT_TM_PADT AS PADT ON PADT.ID_TM = PUISS_SOUSC_TM.ID_VERSANT
+    INNER JOIN `EtaReso`.OUVRAGE AS PS ON PS.ID_VERSANT = PUISS_SOUSC_TM.ID_OUVRAGE
+    INNER JOIN ELEMENT_TOPOLOGIQUE AS TOPO ON TOPO.ID_OUVRAGE = PS.ID_VERSANT
+  WHERE PUISS_SOUSC_TM.P_SOUSCRITE IN (1,2)   
+        AND PUISS_SOUSC_TM.JDD = (SELECT MAX(JDD) FROM `EtaReso`.JDD)
+        AND PS.TYPE_POSTE = 'PAGC'   
+        AND PS.JDD = (SELECT MAX(JDD) FROM `EtaReso`.JDD)
+        AND TOPO.GEOX > 0 AND TOPO.GEOY > 0
+        AND TM_DATA.TM_DATE = CURRENT_DATE()  
+        AND PADT.TM_DATE = CURRENT_DATE()
+  GROUP BY GDO, LIBELLE_TRANCHE
+```
 
 #### Résultat
 
