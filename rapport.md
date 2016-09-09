@@ -1,7 +1,15 @@
 ---
-title:  'Ingénieur informatique stagiaire au sein d’ERDF pendant 6 mois'
+title: Rapport de stage
+subtitle: 'Ingénieur informatique stagiaire au sein d’ERDF pendant 6 mois'
 author: Ophir LOJKINE
 date: Été 2015
+institute: École Centrale de Nantes
+toc: true
+toc-depth: 1
+lang: fr-FR
+documentclass: report
+colorlinks: true
+links-as-notes: true
 abstract: |
   La distribution de l'électricité en France représente une infrastructure gigantesque, performante, et nous est enviée par d'autres pays. L'entreprise ultra-leader dans le domaine, ERDF, génère et enregistre des quantités astronomiques de données chaque jour, et est en pleine mutation vers le numérique.
 
@@ -15,7 +23,9 @@ abstract: |
   Ce rapport détaille l'ensemble de mes missions et de mon parcours dans l'entreprise, et détaille les solutions techniques trouvées à chacun des problèmes rencontrés.
 ---
 
-# Remerciements
+# Introduction
+
+## Remerciements
 Je tiens à remercier mon maître de stage, Sylvain Jouhanneau,
 pour son suivi régulier de mon stage, les projets intéressants qu’il m’a proposés,
 et les personnes qu’il m’a permis de rencontrer.
@@ -28,7 +38,6 @@ j’avais besoin.
 Enfin, je remercie toute l’équipe de l’ACR, et en particuliers les préparateurs
 pour leur accueil chaleureux et leur sympathie.
 
-# Introduction
 ## Présentation de l’entreprise
 ### EDF - ERDF
 Pour comprendre le contexte de mon stage, et les enjeux des missions que j’ai
@@ -160,7 +169,7 @@ Les outils développés dans les ACR ou par des prestataires, par contre, ont
 Ils utilisent donc les extractions des données du SIT-R, comme la base
 EtaReso ou le fichier GeocUtil.
 
-# Sujet du stage
+## Sujet du stage
 J’ai été recruté au sein de l’ACR d'Île-de-France Est en tant que stagiaire
 *data-scientist* (spécialiste de l’extraction, du traitement, et de la visualisation
 de données), dans le but de développer un algorithme de prédiction des valeurs
@@ -177,9 +186,7 @@ Je présente donc dans ce rapport toutes les missions les plus importantes sur
 lesquelles j’ai travaillé, même si beaucoup ne sont pas en rapport direct avec
 mon sujet de stage initial.
 
-# Travail réalisé
-
-## Ariane, site de présentation des évolutions de l’outil de conduite du réseau
+# Première mission: Ariane, site de présentation des évolutions de l’outil de conduite du réseau
 
 ### Contexte
 En arrivant chez ERDF, la première mission que l'on m'a confiée est la réalisation
@@ -241,20 +248,20 @@ donc organisé une réunion de livraison au **GTAR**
 étaient satisfaits, et cela a été l'occasion de découvrir ce pôle d'ERDF, ses missions,
 son organisation et ses méthodes de travail.
 
-## epythie, prédiction de courbes de charge
+# epythie, prédiction de courbes de charge
 
 Après l'épreuve d'initiation qu'a été la création du site web *Ariane*, j'ai pu
 commencer à me concentrer sur l'objet principal de mon stage, la création de
 l'outil de prédiction de charge des postes sources.
 
-### Objectif
+## Objectif
 L'objectif était de créer un dispositif qui permettrait de prévoir la charge
 (l'intensité à fournir) approximative d'un poste source à une date
 donnée.
 
 Ces données prédictives peuvent ensuite être utiles dans plusieurs cas, notemment:
 
-#### Souscription auprès du RTE
+### Souscription auprès du RTE
 ERDF doit régulièrement *souscrire* auprès de RTE à une certaine puissance pour
 chacun de ses postes sources. Cela permet à RTE d'organiser efficacement
 le transport de l'électricité, en connaissant à l'avance les besoins
@@ -268,19 +275,21 @@ réellement utilisé, alors il aura payé pour rien. Avoir un outil de prévisio
 permet donc aux spécialistes chargés de la souscription d'avoir des données
 supplémentaires permettant de rationnaliser cette dépense.
 
-#### Optimisation de la maintenance
+### Optimisation de la maintenance
 Des travaux de maintenance doivent régulièrement être effectués au sein
 des postes sources, pour remplacer des éléments anciens ou défectueux.
 Lors de ces opérations, il faut mettre hors tension le départ concerné
 par la maintenance.
 
-## Création d’APIs d’accès aux données
+# Création d’APIs d’accès aux données
+
 ### Les APIs
+
 ### Le wiki de documentation
 
-## DRIM'IN Saclay: travail sur l’élagage à proximité des lignes électriques
+# DRIM'IN Saclay: travail sur l’élagage à proximité des lignes électriques
 
-## Hackathon ERDF
+# Hackathon ERDF
 Les 7 et 8 juillet, j’ai eu l’occasion de participer à un évènement exceptionnel
 au sein d’ERDF: le premier *hackathon* interne nationnal d’ERDF.
 
@@ -307,14 +316,14 @@ sein de l'entreprise (et non seulement dans notre agence), mais qui soit cependa
 de taille et de complexité assez raisonnable pour pouvoir coder une démo complète
 et fonctionnelle en seulement deux jours.
 
-### Création d’une application de gestion des postes de transformation HTA-BT
+## Création d’une application de gestion des postes de transformation HTA-BT
 
 Après avoir discuté notemment avec Sylvain Jouhanneau, mon maître de stage et
 directeur de l'ACR, nous avons choisi sur quoi allait porter le développement
 lors de ce Hackathon. Elle allait être destinée à rendre plus efficaces et moins
 dangereuses les interventions sur les postes HTA-BT.
 
-#### Exposé du problème à résoudre
+### Exposé du problème à résoudre
 Les postes HTA-BT, derniers postes de transformation du réseau ERDF sur le chemin
 de l'électricité avant l'arrivée chez le client, sont très nombreux. Les
 interventions les concernant sont donc nombreuses et fréquentes, et se doivent
@@ -332,8 +341,8 @@ devait avoir lieu.
  * ils ignorent parfois des **informations importantes sur le poste**. Par exemple,
 ils ne disposent pas toujours de l'historique des interventions passées.
 
-#### Solution proposée
-##### Cahier des charges
+## Solution proposée
+### Cahier des charges
 Nous avons décidé la création d'une application mobile que les techniciens
 pourraient directement consulter depuis leur téléphone mobile personnel.
 La quasi-totalité des techniciens a un smartphone, et leur usage est autorisé
@@ -346,7 +355,7 @@ différents), et enfin, permettre la communication entre techniciens, en les
 autorisant à laisser des notes destinées aux prochains techniciens à intervenir
 sur le même poste.
 
-##### Solution technique
+### Solution technique
 Le hackathon était pour mon collègue programmeur de l'ACR et pour moi à
 la fois une occasion de sortir du travail et des missions du quotidien,
 et donc d'expérimenter de nouvelles technologies, et une période de travail intense
@@ -382,7 +391,7 @@ assez expressives était un très bon objectif à se fixer pour ces deux jours.
 Mon collègue avait rarement été amené à réaliser toute une API cohérente auparavant,
 et cette occasion était à saisir.
 
-##### Interface graphique
+### Interface graphique
 
 ![Premier écran de l'application, dans sa version présentée à la fin du hackathon](images/ophyr-small.png)
 
@@ -398,7 +407,7 @@ Nous avons décidé de deux écrans successifs à afficher:
  techniciens, ainsi que de laisser son propre commentaire.
 
 
-#### Déroulement des deux jours de développement
+## Déroulement des deux jours de développement
 Le développement devait commencer très vite, et nous nous y sommes donc mis
 dès que nous avons finalisé nos choix techniques, au milieu du premier jour.
 
@@ -423,7 +432,7 @@ avancé sur les APIs, de manière que nous étions assez satisfaits de notre app
 à la fin de la journée pour arrêter le développement et commencer la préparation
 de la démonstration que nous allions devoir faire aux autres participants.
 
-### Présentation finale
+## Présentation finale
 Nous avons présenté notre résultat devant un jury composé de membres du groupe ERDF
 et d'experts d'entreprises partenaires.
 
@@ -435,12 +444,12 @@ Cependant, le résultat est très positif pour nous, puisque nous avons atteint 
 objectif en deux jours, et nous espérons maintenant que l'application sera
 finalisée, testée, puis mise sur le terrain.  
 
-##### Publication du code
+### Publication du code
 Nous avons depuis publié tout le code source qui pouvait l'être sans enfreindre
 la politique de partage des données de l'entreprise. Le résultat est sur Github
 dans le dépôt [lovasoa/HTAgBT](https://github.com/lovasoa/HTAgBT).
 
-## Méthodes innovantes de visualisation de données
+# Méthodes innovantes de visualisation de données
 Mon maître de stage était très intéressé par l'innovation au sein de l'ACR en
 général, et les méthodes innovantes de visualisationde données en particulier.
 
@@ -451,7 +460,7 @@ plus rapide, et plus esthétique d'accéder à certaines données.
 Ces réalisations étaient principalement destinées aux démonstrations à l'intention
 des visiteurs de l'ACR, mais aussi du personnel.
 
-### Courbe de charge "en horloge"
+## Courbe de charge "en horloge"
 L'ACR est en charge d'un certain nombre de postes sources. Chacun fournit une
 puissance qui varie en fonction de la demande énergétique des clients qui
 dépendent du poste.
@@ -464,7 +473,7 @@ L'objectif était ici d'inventer une manière innovante et attrayante de présen
 ces données, qui pourrait être présentée notamment sur les écrans de l'agence et
 au public en visite à l'ACR.
 
-#### Idée générale
+### Idée générale
 L'idée fut de réaliser un petit *widget*, qui pourrait être intégré dans d'autres
 pages, et qui prendrait la forme d'une horloge analogique.
 
@@ -482,7 +491,7 @@ Le résultat est comme suit.
 
 ![Horloge de charge, indiquant la puissance totale distribuée par l'ACR](images/chargerond.png)
 
-#### Réalisation
+### Réalisation
 J'ai décidé de découper ce petit projet en deux:
 
  * Une bibliothèque javascript générique pour ce type de représentation graphique "en horloge".
@@ -492,7 +501,7 @@ Le petit résultat final a été intégré à la liste des outils de l'ACR, il
 est disponible pour tout le monde sur l'intranet et a été intégré sous forme
 de *widget* en petit format à la page d'accueil du portail intranet de l'agence.
 
-##### Bibliothèque *roundplot*
+#### Bibliothèque *roundplot*
 La bibliothèque est une bibliothèque javascript générique; elle fonctionne avec
 n'importe quelle série temporelle. Elle est écrite en javascript, suivant la
 syntaxe [ecmascript 6](https://fr.wikipedia.org/wiki/ECMAScript).
@@ -507,7 +516,7 @@ L'horloge elle-même est rendue dans le navigateur sous forme d'un
 J'ai publié cette bibliothèque sur Github:
 [https://github.com/lovasoa/roundplot](https://github.com/lovasoa/roundplot)
 
-### Les pingouins: "Ensemble, refroidissons la planète"
+## Les pingouins: "Ensemble, refroidissons la planète"
 L'idée du *projet pingouins* a germé lors d'une réunion mensuelle de l'agence,
 la première à laquelle j'ai été convié. Sylvain Jouhanneau, le directeur de l'ACR, faisait
 remarquer que les outils dont nous disposions, bien qu'en général très puissants,
@@ -525,7 +534,7 @@ marquant, et avait plu partout où il avait été présenté.
 Notre projet était de produire une représentation dynamique du même type, avec la
 même dimension pédagogique et ludique à la fois, adaptée à notre agence de conduite.
 
-#### Que représenter ?
+### Que représenter ?
 Une information très importante à connaître à l'ACR à tout moment est la charge
 totale de chacun des postes sources. Les situations de crise correspondent à des
 moments ou plusieurs postes sources doivent fournir une puissance très importante.
@@ -533,7 +542,7 @@ Un bon indicateur de l'état de santé de l'ACR est donc la liste des postes sou
 avec les puissances actuelles et souscrites associées. Il a donc été décidé de
 présenter cette information là dans notre représentation graphique innovante.
 
-#### Comment le présenter ?
+### Comment le présenter ?
 Nous avons décidé de garder le même animal que dans l'idée originale, pour son
 caractère mignon, et emblématique du réchauffement climatique.
 
@@ -565,9 +574,9 @@ sur la carte. Elle correspond à la zone géographique déservie par le poste,
 c'est-à-dire toute la zone dans laquelle il y a des habitations qui dépendent
 du poste.
 
-#### Réalisation technique et technologies utilisées
+### Réalisation technique et technologies utilisées
 
-##### Structure de l'application
+#### Structure de l'application
 L'application est très simple, composée d'un *front-end* en javascript et un
 back-end en PHP.
 
@@ -576,7 +585,12 @@ bibliothèque [leaflet](http://leafletjs.com/) pour le rendu de la carte navigab
 Le fond de carte utilisé est celui d'[OpenStreetMap](https://www.openstreetmap.org/),
 une carte du monde libre et collaborative. Il utilise des
 [`XMLHttpRequest`](https://developer.mozilla.org/fr/docs/Web/API/XMLHttpRequest)
-pour communiquer avec le *back-end*.
+pour communiquer avec le *back-end*. J'ai implémenté en javascript l'algorithme
+du [parcours de Graham](https://en.wikipedia.org/wiki/Graham_scan) pour afficher
+la zone de banquise des pingouins à partir de la liste des coordonnées de tous
+les postes HTA-BT dépendants d'un poste source. J'en ai fait
+une petite bibliothèque javascript, que j'ai
+[publiée sur NPM](https://www.npmjs.com/package/graham-fast).
 
 Le *back-end* en PHP est très simple aussi, il se contente de faire les requêtes
 à la base de données MySQL, de normaliser les résultats, et de les retourner
@@ -589,7 +603,7 @@ J'ai écrit une bibliothèque PHP pour convertir entre ces formats, et l'ai
 est fondée sur [une autre bibliothèque libre](https://github.com/joffreykern/LambertToGps),
 écrite en `.NET`.
 
-##### Requête SQL
+#### Base de données
 Les informations nécessaires à l'affichage des pingouins sur la carte sont contenues
 dans la base de données `EtaReso`, dans les tables suivantes:
 
@@ -601,6 +615,8 @@ réseau, dont les postes sources.
  * `ELEMENT_TOPOLOGIQUE` : tous les éléments physiques du réseau, et leurs *coordonnées
 Lambert*.
  * `TM` : permet d'obtenir l'unité des nombres retirés des tables `EVT_TM_*`.
+
+##### Requête SQL
 
 ```SQL
 SELECT
@@ -627,9 +643,10 @@ SELECT
   GROUP BY GDO, LIBELLE_TRANCHE
 ```
 
-#### Résultat
+### Résultat
+Sur cette capture d'écran, la souris survole le poste source "Clichy", et les informations associées sont affichées: on voit que le poste délivre environ 2MW de plus que la puissance souscrite qui lui est associée.
 
-![Ensemble, refroidissons la planète: résultat final du projet pingouins. Sur cette capture d'écran, la souris survole le poste source "Clichy", et les informations associées sont affichées: on voit que le poste délivre environ 2MW de plus que la puissance souscrite qui lui est associée.](images/pingouins.png)
+![Ensemble, refroidissons la planète: résultat final du projet pingouins](images/pingouins.png)
 
 ## WBO, tableau blanc interactif
 ![Tableau blanc interactif](images/wbo.png)
