@@ -252,6 +252,8 @@ son organisation et ses méthodes de travail.
 
 # epythie, prédiction de courbes de charge
 
+![Logo de l'application epythie](images/logo-epythie.pdf)
+
 Après l'épreuve d'initiation qu'a été la création du site web *Ariane*, j'ai pu
 commencer à me concentrer sur l'objet principal de mon stage, la création de
 l'outil de prédiction de charge des postes sources.
@@ -300,7 +302,8 @@ déployée que dans les ACR d'Île De France (Est, Ouest et Paris).
 ## Recherche de données
 Bien sûr, pour espérer pouvoir prévoir la consommation des postes sources en
 temps réel, il faut avant tout pouvoir examiner les données du passé, trouver
-quelles données sont pertinentes, et
+quelles données sont pertinentes, et comment corréler des facteurs
+extérieurs avec la donnée que l'on cherche à prédire.
 
 ## Conclusion sur epythie
 Le travail sur epythie était très intéressant, et très satisfaisant, surtout à la
