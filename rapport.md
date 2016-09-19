@@ -146,7 +146,9 @@ Les données reçues des postes sources, le schéma du réseau, et les données 
 par les configurateurs sont stockées et traitées sur le **SIT-R**.
 
 Le *SIT-R* exporte certaines de ses données régulièrement et automatiquement
-sur la base de données MySQL **EtaReso**, et c'est cette base qui est utilisée par les applications.
+sur la base de données MySQL **EtaReso**, et c'est cette base qui est utilisée par les
+applications. Par exemple, les données de toutes les télémesures du réseau
+sont enregistrées, et sauvegardées avec un interval de 10 minutes sur *EtaReso*.
 
 Toutes les données ne sont pas dans *EtaReso*, et la structure de la base de données
 n'est pas documentée.
@@ -261,7 +263,7 @@ donnée.
 
 Ces données prédictives peuvent ensuite être utiles dans plusieurs cas, notemment:
 
-### Souscription auprès du RTE
+##### Souscription auprès du RTE
 ERDF doit régulièrement *souscrire* auprès de RTE à une certaine puissance pour
 chacun de ses postes sources. Cela permet à RTE d'organiser efficacement
 le transport de l'électricité, en connaissant à l'avance les besoins
@@ -275,11 +277,53 @@ réellement utilisé, alors il aura payé pour rien. Avoir un outil de prévisio
 permet donc aux spécialistes chargés de la souscription d'avoir des données
 supplémentaires permettant de rationnaliser cette dépense.
 
-### Optimisation de la maintenance
+##### Optimisation de la maintenance
 Des travaux de maintenance doivent régulièrement être effectués au sein
 des postes sources, pour remplacer des éléments anciens ou défectueux.
 Lors de ces opérations, il faut mettre hors tension le départ concerné
 par la maintenance.
+
+##### Gestion des crises
+On appelle une période de crise une durée de quelques jours où un nombre d'incidents
+anormalement grand survient. Une crise peut être dûe à plusieurs facteurs, comme
+une tempête, ou une vague de chaleur. Lors de mon stage, nous avons fait face à
+une crise dûe à la canicule d'août 2015.
+Lors de tels évènements, connaître à l'avance la demande en énergie peut être très
+profitable, pour savoir où intervenir en priorité.
+
+À noter: ERDF dispose déjà d'un modèle de prévision des incidents. La recherche
+et le modèle mathématique ont été faits par un ancien polytechnicien qui travaille
+pour ERDF au niveau national, que j'ai eu l'occasion de rencontrer. L'implémentation
+concrète en PHP a été développée par mon collègue Yann et n'est pour l'instant
+déployée que dans les ACR d'Île De France (Est, Ouest et Paris).
+
+## Recherche de données
+Bien sûr, pour espérer pouvoir prévoir la consommation des postes sources en
+temps réel, il faut avant tout pouvoir examiner les données du passé, trouver
+quelles données sont pertinentes, et
+
+## Conclusion sur epythie
+Le travail sur epythie était très intéressant, et très satisfaisant, surtout à la
+fin, en se retrouvant face à l'interface graphique finalisée, et
+indiquant des prévisions plutôt correctes.
+
+Cependant, j'aurais aimé pouvoir y consacrer beaucoup plus de temps. Cette mission
+aurait mérité d'y travailler à plein temps, et avec des spécialistes, et elle
+n'a finalement été que l'un de mes différents projets de stage. J'aurais notemment
+aimé avoir l'occasion de passer du temps à la validation du modèle, et au calcul
+de paramètres optimaux, ainsi qu'à la quantification de l'influence de la météo
+sur la consommation.
+
+L'application a ainsi encore une grande marge de progression, depuis l'analyse
+plus poussée des données
+initiales pour fournir de meilleures prévisions, jusqu'à la réalisation d'une interface
+graphique plus ergonomique, en passant par l'optimisation des performances.
+On pourrait aussi envisager de nouvelles fonctionalités, comme la prévision sur
+le long terme, la catégorisation des postes sources par type de courbe de charge
+(pour l'instant, la prédiction des valeurs d'un poste n'utilise l'historique
+que de ce poste là), ou même la détection de fraudes en analysant les anomalies
+dans la courbe de charge, au niveau des postes de distribution.
+
 
 # Création d’APIs d’accès aux données
 
