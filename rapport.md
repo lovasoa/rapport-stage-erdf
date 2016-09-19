@@ -315,6 +315,134 @@ auto-corrélées**. Elles sont presque périodiques; la consommation à l'instan
 visible de la météo. Elle **augmente légèrement** mais visiblement **lorsqu'il fait
 froid** ou que le temps est mauvais.
 
+#### Données des télémesures
+Les données concernant les valeurs de puissances distribuées sont, comme
+expliqué plus haut, mesurées par des télémesures, récupérées par le **SIT-R**, et
+sauvegardées à intervalle régulier sur la base de données **ÉtaReso**, à laquelle
+j'ai accès en lecture.
+
+La structure de la base n'est pas documentée, mais mon collègue Yann a l'habitude
+de travailler avec, et a déjà eu à faire des applications qui accédaient aux
+télémesures, il m'indique rapidement où chercher. Et un premier problème apparaît:
+la structure de la table dans laquelle sont sauvegardées ces données.
+
+La table qui contient les relevés s'appelle *EVT_TM*, et a la structure suivante [^1]:
+
+[^1]: Le dump SQL a été tronqué pour plus de lisibilité.
+
+```SQL
+CREATE TABLE `EVT_TM` (
+  `ID_TM` varchar(28) NOT NULL DEFAULT '',
+  `TM_DATE` date NOT NULL DEFAULT '0000-00-00',
+  `TM00h00` decimal(10,2) DEFAULT NULL,
+  `TM00h10` decimal(10,2) DEFAULT NULL,
+  `TM00h20` decimal(10,2) DEFAULT NULL,
+  `TM00h30` decimal(10,2) DEFAULT NULL,
+  `TM00h40` decimal(10,2) DEFAULT NULL,
+...
+  `TM23h10` decimal(10,2) DEFAULT NULL,
+  `TM23h20` decimal(10,2) DEFAULT NULL,
+  `TM23h30` decimal(10,2) DEFAULT NULL,
+  `TM23h40` decimal(10,2) DEFAULT NULL,
+  `TM23h50` decimal(10,2) DEFAULT NULL,
+
+PRIMARY KEY (`ID_TM`,`TM_DATE`),
+KEY `A_POUR_TM_FK` (`ID_TM`),
+KEY `A_POUR_DATE` (`TM_DATE`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+```
+
+Comme on le voit, les valeurs des télémesures pour une même journée sont "en ligne"
+et non "en colonne", ce qui complexifie notablement les requêtes SQL et les scripts
+de traitement des données si l'on considère les valeurs de télémesure comme des séries
+temporelles. Les scripts doivent générer le texte de la requête SQL pour qu'ils
+contiennent les noms des *24 \* 6 = 144* colonnes, et ensuite reformater
+le résultat des différentes lignes de retour de la requête pour en faire une simple liste.
+
+Un second problème (certainement lié au format de la table aussi), est que les
+requêtes sont parfois très lentes. La base de données contient beaucoup de données,
+et est utilisée presque en parmanence par les autres applications de l'APR. Il n'est
+ainsi pas vraiment envisageable de se servir de cette table directement lorsque
+l'on a besoin de grosses quantités de données pour générer les prévisions, ni
+même dans un premier temps pour étudier les données.
+
+#### Données météorologiques
+ERDF a souscrit à un abonnement auprès de météofrance, qui lui fournit régulièrement
+(tous les jours, deux fois par jour) des données météorologiques concernant la température constatée des jours passés ainsi que des prévisions pour les 12 jours à venir.
+
+Ces données ne sont pas enregistrées dans une base de données, mais sur un **serveur
+FTP** protégé par mot de passe, accessible depuis l'intranet ERDF. On m'a fourni
+le mot de passe, et le court fichier texte de documentation du format des fichiers
+disponibles sur le serveur.
+
+Les fichiers contiennent pour chaque jour des températures précises au dixième
+de degré près, relevées toutes les trois heures de minuit à 21 heures compris,
+ainsi que la minimale et la maximale de la journée.
+On n'a les données que d'une station météo, située en Île de France.
+
+La connexion au serveur FTP et l'accès aux fichiers peuvent bien sûr être
+scriptés, mais encore une fois, l'accès n'est pas assez rapide pour envisager une
+utilisation *en temps réel*.
+
+### Normalisation des données
+Pour toutes les raisons citées précédemment, j'ai décidé de créer ma propre base
+de données pour stocker les valeurs de puissance des télémesures et
+de température de Météofrance.
+
+Ma base de données a la structure suivante [^sql] :
+
+[^sql]: Source du dump MySQL, reformatée pour être plus lisible.
+
+```SQL
+CREATE TABLE `meteo` (
+  `date` datetime NOT NULL
+    COMMENT 'Date et heure du relevé',
+
+  `temperature` float NOT NULL
+    COMMENT 'Valeur de température en degré celsius'
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+CREATE TABLE `telemesures` (
+  `libelle` varchar(255) COLLATE utf8_bin NOT NULL
+      COMMENT 'Libellé de la télémesure',
+
+  `date` datetime NOT NULL
+      COMMENT 'Date et heure de la télémesure',
+
+  `heure_avance_prevision` int(11) NOT NULL
+    COMMENT 'Nombre d''heures à l''avance pour lesquels la prévision a été faite.
+    0 si ce n''est pas une prévision mais une valeur effective.',
+
+  `valeur` float NOT NULL
+      COMMENT 'Valeur de la télémesure. L''unité dépend de la télémesure',
+
+  PRIMARY KEY (`libelle`,`date`,`heure_avance_prevision`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+  COMMENT='Valeurs des télémesures, importées depuis la table EVT_TM d''EtaReso';
+```
+
+Comme on le voit, la table telemesures sert non seulement à stocker les valeurs
+extraites d'EtaReso, mais aussi les valeurs prédites par mon modèle.
+Cela rend très facile l'utilisation "récursive" du modèle pour avoir des prédictions
+sur de plus longues durées, par exemple. Le modèle peut prendre en entrée indiféremment
+des valeurs effectivement mesurées et des valeurs qui ont elles-mêmes été prédites.
+
+J'ai écrit deux scripts python pour l'import des données respectivement d'EtaReso
+et du serveur FTP, et créé une petite bibliothèque python d'accès transparent aux données:
+elle permet d'aller chercher les données dans la base, les y importer si elles n'y
+sont pas encore, et les retourner sous forme de [dataframe pandas](http://pandas.pydata.org/).
+
+## Analyse des données
+Une fois les données importées et accessible sous un format facile d'accès,
+j'ai pu commencer le travail d'analyse des données. Je me suis pour cela aidé
+d'[ipython](https://ipython.org/),
+[pandas](http://pandas.pydata.org),
+[numpy](http://www.numpy.org/),
+[scipy](http://www.scipy.org/getting-started.html),
+[scikit-learn](http://scikit-learn.org/),
+[matplotlib](http://matplotlib.org/).
+
 ## Conclusion sur epythie
 Le travail sur epythie était très intéressant, et très satisfaisant, surtout à la
 fin, en se retrouvant face à l'interface graphique finalisée, et
