@@ -151,7 +151,10 @@ applications. Par exemple, les données de toutes les télémesures du réseau
 sont enregistrées, et sauvegardées avec un interval de 10 minutes sur *EtaReso*.
 
 Toutes les données ne sont pas dans *EtaReso*, et la structure de la base de données
-n'est pas documentée.
+n'est pas documentée, mais un graphe complet des tables et de leurs relations
+a été généré.
+
+![Graphe représentant la structure de la base MySQL EtaReso](images/structure-EtaReso.pdf)
 
 On peut récupérer certaines données concernant le schéma du
 réseau dans le fichier **Geocutil**.
