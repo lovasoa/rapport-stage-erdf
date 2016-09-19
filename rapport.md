@@ -305,6 +305,16 @@ temps réel, il faut avant tout pouvoir examiner les données du passé, trouver
 quelles données sont pertinentes, et comment corréler des facteurs
 extérieurs avec la donnée que l'on cherche à prédire.
 
+EN l'occurence, le seul facteur extérieur auquel je me suis intéressé est la météo,
+et en particulier la température extérieure. Ce pour deux raisons:
+
+ * les courbes de charges (puissance délivrée en fonction du temps) sont très **fortemenent
+auto-corrélées**. Elles sont presque périodiques; la consommation à l'instant
+*t* dépend beaucoup de *t* et de la consommation à l'instant *t-1*.
+ * par expérience des employés de l'ACR, on sait que la consommation dépend de manière
+visible de la météo. Elle **augmente légèrement** mais visiblement **lorsqu'il fait
+froid** ou que le temps est mauvais.
+
 ## Conclusion sur epythie
 Le travail sur epythie était très intéressant, et très satisfaisant, surtout à la
 fin, en se retrouvant face à l'interface graphique finalisée, et
