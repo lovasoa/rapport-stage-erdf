@@ -1164,10 +1164,59 @@ dessus. Chaque outil est indépendant, codé en javascript et assez simple.
 Le cœur, qui gère la distribution des évènements de dessin et la communication
 avec le serveur, ne fait que 400 lignes de javascript.
 
-Dans le cadre de mon stage, j'ai notemment rendu le code compatible avec Internet Explorer
-9, traduit l'interface en français, et ajouté un outil de dessin de lignes droites. 
+Dans le cadre de mon stage, j'ai notemment
+[rendu le code compatible avec Internet Explorer](https://github.com/lovasoa/whitebophir/commit/8bb9479972056ac99eba1148693eee1c67fafca7),
+[traduit l'interface en français](https://github.com/lovasoa/whitebophir/commit/dc461b52f3e4179b399089e5ca1c09244b3eba7e),
+et [ajouté un outil de dessin de lignes droites](https://github.com/lovasoa/whitebophir/commit/fd9657304f39ab4450a65c809cc4aa0847ab70b3).
+
+J'ai ensuite déployé l'application sur un serveur intranet Azure, où j'ai
+installé node.js.
 
 # Conclusion
-## Résumé du travail accompli
-## Poursuite des projets commencés
+## Travail accompli et compétences acquises
+Le stage ne s'est pas déroulé comme je l'imaginais. Je pensais passer tout
+mon temps sur le développement du modèle de prédiction des courbes de charge,
+et ça n'a finalement occuppé qu'une partie de mon stage. Cela signifie que
+le modèle n'est pas aussi abouti que ce que j'espérais, mais cela signifie
+aussi que j'ai eu le temps de travailler sur de nombreux autres projets intéressants
+et de rencontrer beaucoup de gens.
+
+J'ai notemment passé une grande partie de mon stage à faire du développement web,
+principalement front-end en javascript, mais aussi back-end en PHP, python
+et node.js. J'ai appris à utiliser de nouveaux outils et frameworks, comme
+AngularJS et bootstrap.
+
+J'ai regretté de ne pas avoir l'occasion de passer de temps avec un
+ingénieur en informatique, et je me suis parfois senti seul sur des questions
+techniques, comme l'accès aux bases de données non documentées, les choix
+des outils et algorithmes pour l'analyse de données, ou la configuration des
+serveurs CentOS fournis pour l'hébergement sur l'intranet. D'un autre côté,
+j'ai beaucoup appris, et pense avoir gagné en autonomie. Et les autres
+membres de l'ACR étaient toujours présents et enthousiastes pour m'expliquer
+comment fonctionne le réseau électrique, comment l'entreprise est organisée,
+et même quelles bases de données utiliser.
+
 ## Mon expérience humaine au sein d’ERDF
+Je pense avoir encore plus appris sur le plan humain, et sur le fonctionnement
+du monde de l'entreprise que sur le plan technique.
+
+ERDF est une entreprise très accueillante, et de manière générale, les salariés
+que j'ai rencontrés étaient prêts à aider, à expliquer, et enthousiastes
+envers l'innovation. J'ai cependant appris qu'une énorme machine comme ERDF a un très gros
+*moment d'inertie*, et que les choses, malgré toutes les bonnes volontés, bougent
+très lentement.
+
+Je suis très reconnaissant envers mon collègue Yann Le Hervé d'avoir passé autant
+de temps avec moi, prenant de son temps de travail et sur son emploi du temps
+toujours chargé du temps pour m'expliquer tout ce que je voulais savoir sur
+le fonctionnement parfois complexe de l'informatique au sein de l'entreprise.
+
+Je remercie également Sylvain Jouhanneau, mon maître de stage, pour m'avoir donné
+tant d'opportunités, m'avoir fait participer à tant de projets différents.
+J'ai découvert grâce à lui une grande partie de l'entreprise, et non seulement
+l'ACR dans laquelle j'étais venu faire mon stage.
+
+J'envisage aujourd'hui sérieusement, parmi d'autres options, de candidater dans
+l'entreprise pour y commencer ma carrière. L'usage de l'informatique au sein
+d'ERDF se développe très vite, et participer à cette évolution est passionnant
+et motivant. 
