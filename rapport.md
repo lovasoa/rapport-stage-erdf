@@ -446,6 +446,88 @@ d'[ipython](https://ipython.org/),
 [scikit-learn](http://scikit-learn.org/),
 [matplotlib](http://matplotlib.org/).
 
+J'ai tout d'abord importé les données d'un poste source, sur toute l'année 2014,
+pris toutes les tois heures, afin d'avoir assez de données pour pouvoir commencer
+une analyse, et assez peu pour qu'elles tiennent en mémoire et que les calculs soient rapide.
+
+### Évolution de la puissance fournie au cours de l'année
+
+![Puissance fournie en fonction du temps. L'abscisse est l'index du point dans la liste de données, avec un point toutes les 3 heures. On voit la baisse de consommation en été et la différénce nuit/jour.](images/puissance-temps.png)
+**Puissance fournie en fonction du temps**. L'abscisse est l'index du point dans la liste de données, avec un point toutes les 3 heures. On voit la baisse de consommation en été et la différénce nuit/jour.
+
+### Évolution au cours de la journée
+
+![Puissance fournie au cours da journée en fonction du jour de la semaine.](images/puissance-semaine.png)
+J'ai analysé l'évolution de la **puissance en fonction du jour de la semaine**. Chaque courbe correspond à un jour de la semaine, numéroté de 0 à 6. On voit que tous les jours une courbe de charge assez similaire, et on remarque que le dimanche est légèrement décalé: il monte plus tard le matin, certainement parce que les gens se lèvent plus tard.
+
+### Évolution de la puissance fournie au fonction de la température extérieure
+
+![Puissance fournie en fonction de la température extérieure en degrés.](images/puissance-temperature.png)
+**Puissance fournie en fonction de la température extérieure** en degrés. On voit deux groupes de points correspondants aux valeurs du jour (plus hautes) et de la nuit (plus basses). On voit qu'en dessous de 15 degrés, la consommation est à peu près inversement proportionnelle à la température. Au dessus, elle est environ proportionnelle, mais avec un coefficient de proportionnalités (nombre de Mégawatts générés par degré supplémentaire) beaucoup plus faible.
+
+![Puissance en fonction de la température extérieure, sous forme d'histogramme](images/histo-temp.png)
+**Puissance en fonction de la température** extérieure sous forme d'histogramme
+
+![puissance/température : polyfit](images/polyfit-temp.png)
+Tentative (moyennement fructueuse) d'approximer la relation entre **puissance et température**
+par un **polynôme de degré 3**. On obtient de meilleurs résultats avec deux polynômes de degré 1
+pour l'été et pour l'hiver.
+
+### Conclusions de l'analyse
+En conclusion, j'ai décidé de choisir les paramètres suivants comme paramètres
+d'entré de mon modèle de prédiction à J+1:
+
+ * puissance enregistrée la veille à la même heure
+ * température prévue au moment où l'on fait la prévision
+ * heure
+ * jour de la semaine
+ * numéro du jour dans l'année
+
+Avec ces paramètres, même un modèle simple donne d'assez bons résultats.
+
+## Établissement du modèle
+Une fois les données d'entrées réunies et formatées, j'ai utilisé `scikit-learn`
+pour créer un modèle et l'entraîner avec les données sources.
+
+J'ai utilisé un modèle fondé sur les [machines à vecteur de support](http://scikit-learn.org/stable/modules/svm.html).
+
+Une fois entraîné sur les données évoquées précédemment, il produit d'assez bons résultats.
+Voilà un zoom sur quelques jours de décembre 2014:
+![prévision vs réel](images/comparaison_prediction_reel.pdf)
+
+On voit que l'ordre de grandeur des résultats est systématiquement le bon.
+Cependant, certains jours (à partir du 29 décembre ici), les prédictions diffèrent
+beaucoup plus que d'autres (jusqu'à environ 25%). Cet exemple permet de montrer les limites du modèle.
+Ici, le 29 décembre au soir, il y a très visiblement eu un problème sur un poste
+source voisin, qui a été déchargé sur celui-ci. Donc la consommation a brutalement
+augmenté, alors que le modèle ne pouvait pas le prévoir. Il fait donc des prédictions
+systématiquement sous-estimées, jusqu'à ce que la situation revienne à la normale
+(jusqu'à ce que le poste voisin puisse reprendre la charge des habitations dont
+il a la charge habituellement).
+
+![Valeur prédite en fonction de la valeur réelle. On voit que le modèle fait de meilleurs prédictions sur les valeurs faibles (en été).](images/resultats-model-eval.png)
+
+On voit ici que le modèle est plutôt bon en situation normale, mais tout à fait incapable de prévoir
+les situations de crise, ou même les simple incidents. Il est important que ses
+futurs utilisateurs en connaissent les limites.
+
+
+## Déploiement
+J'ai pris quelques jours de développement pour finaliser et déployer le modèle.
+J'ai commendé un serveur à *Azure*, le service informatique interne d'ERDF qui
+propose des serveurs CentOS avec un accès `root` accessibles sur tout l'intranet ERDF.
+
+J'y ai installé MariaDB, python et ses bibliothèque scientifiques, apache et
+mod_python.
+
+J'ai développé un front-end très simple, en javascript, qui utilise la bibliothèque
+[flot](http://www.flotcharts.org/) pour l'affichage de graphiques, et communique
+avec le backend en python avec une simple API REST. J'ai réalisé un logo pour l'application.
+
+![Interface graphique pendant le chargement.](images/epythie.pdf)
+
+Le résultat a une apparence correcte, mais encore très minimaliste, voire simpliste.
+
 ## Conclusion sur epythie
 Le travail sur epythie était très intéressant, et très satisfaisant, surtout à la
 fin, en se retrouvant face à l'interface graphique finalisée, et
@@ -470,6 +552,14 @@ dans la courbe de charge, au niveau des postes de distribution.
 
 
 # Création d’APIs d’accès aux données
+
+Lors de mon travail sur epythie, et ensuite sur d'autres projets, il y a une chose
+qui m'a beaucoup manqué: une manière consistante, simple et documentée d'accéder
+aux données générées et stockées par ERDF.
+
+J'ai donc passé une petite partie de mon temps de stage, à chaque fois que j'en
+avais besoin, à travailler sur des APIs simples et documentées, acessibles partout
+dans l'intranet d'ERDF. 
 
 ### Les APIs
 
