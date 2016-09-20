@@ -559,13 +559,173 @@ aux données générées et stockées par ERDF.
 
 J'ai donc passé une petite partie de mon temps de stage, à chaque fois que j'en
 avais besoin, à travailler sur des APIs simples et documentées, acessibles partout
-dans l'intranet d'ERDF. 
+dans l'intranet d'ERDF, et à essayer de faire la publicité de mes APIs, et d'une
+telle pratique en générale auprès des autres développeurs et informaticiens que j'ai
+pu rencontrer chez ERDF.
+
+J'ai commandé un hébergement au service AZURE d'ERDF pour faire héberger ce système d'API,
+et sa documentation.
 
 ### Les APIs
+Mon système est très simple. Il part du constat que la plupart des données
+nécessaires dans la vie de tous les jours de l'ACR, et donc dans la plupart des applications,
+est accessible sur EtaReso, par une requête SQL, parfois un peu complexe.
+
+J'ai donc créé une classe PHP qui gère tout ce qui était jusqu'alors réimplémenté
+pour chaque application parfois plusieurs fois:
+
+ * interprétation des paramètres de requête HTTP,
+ * connexion à la base de données,
+ * requête SQL avec les paramètres d'entrés (en faisant attention aux injections SQL),
+ * affichage du résultat au format JSON.
+
+```PHP
+class SQLAPI{
+  private $sql;
+  private $args;
+  private $dbName;
+  protected $params;
+  protected $db;
+
+  public function __construct($sql, $args=array(), $db = FALSE) {
+    $this->sql = $sql;
+    $this->args = $args;
+    $this->dbName = $db;
+  }
+
+  private function formatRow($row) {
+    //Transformation to apply to every row of result
+    return $row;
+  }
+
+  protected function formatResults($results) {
+    // Par défaut, retourne les résultats dans un objet
+    return array("results" => $results);
+  }
+
+  public function executeStatement($stmt, $params) {
+    foreach($params as $k=>$v) {
+      $stmt->bindValue(":$k", $v);
+    }
+    $stmt->execute();
+  }
+
+  public function resultString($results) {
+    $res = json_encode($results);
+    if ($res === FALSE) {
+      throw new Exception(json_last_error_msg());
+    }
+    return $res;
+  }
+
+  public function contentType() {return "application/json";}
+
+  private function getDBName() {
+    if ($this->dbName !== FALSE) return $this->dbName;
+    elseif (isset($_GET['db'])) return $_GET['db'];
+    else return "etareso-melun";
+  }
+
+  private function getDB() {
+    $dbname = $this->getDBName();
+    $dblisttxt = file_get_contents(__DIR__."/../config/databases.json");
+    $dblist = json_decode($dblisttxt, true);
+    $dbconf = $dblist[$dbname];
+    return new PDO($dbconf['dsn'], $dbconf['user'], $dbconf['pass']);
+  }
+
+  protected function getParams($req_params) {
+    $params = array();
+    foreach($this->args as $i=>$argname) {
+      $params[$argname] = $req_params[$i];
+    }
+    return $params;
+  }
+
+  public function fetchResults ($stmt) {
+    $res = array();
+    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+      $res[] = $this->formatRow($row);
+    }
+    return $res;
+  }
+
+  public function handleQuery($req_params) {
+    try {
+      $this->params = $this->getParams($req_params);
+      $this->db = $this->getDB();
+      $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $stmt = $this->db->prepare($this->sql);
+      $this->executeStatement($stmt, $this->params);
+      $results = $this->fetchResults($stmt);
+      $results = $this->formatResults($results);
+      $stmt->closeCursor();
+      header("Content-Type: ".$this->contentType());
+      $resultStr = $this->resultString($results);
+    } catch (Exception $e) {
+      $resultStr = json_encode(array(
+        "error" => $e->getMessage()
+      ));
+    }
+    echo $resultStr;
+  }
+}
+```
+On peut ensuite étendre cette classe pour chacune des APIs requises, et on évite de
+la duplication de code.
+
+J'ai ensuite créé des APIs au fur et à mesure, pour les données dont j'avais besoin,
+ou dont mon collègue Yann avait besoin.
 
 ### Le wiki de documentation
+J'ai créé un wiki grâce à [dokuwiki](https://www.dokuwiki.org/dokuwiki#), où
+j'ai indiqué pour chaque point d'API créé comment s'en servir, et le format
+sous lequel les données sont retournées. Tous les développeurs d'ERDF intéressés
+peuvent contribuer.
 
 # DRIM'IN Saclay: travail sur l’élagage à proximité des lignes électriques
+
+J'ai eu l'occasion, grâce à mon maître de stage, de participer pendant trois
+jours à la *convention d'Open Inovation* [Drim'in Saclay](http://www.driminsaclay.com/le-concept),
+organisée notemment par la chambre de commerce et de l'industrie sur le campus de l'École
+polytechnique.
+
+## L'évènement
+
+Drim'in Saclay, c'est un évènement de trois jours, sur le thème de l'énergie,
+qui fait se réunir des grands comptes (EDF, ERDF, GRDF, Air liquide...), des startups,
+des étudiants, pour les faire travailler en petite équipe sur des *défis* définis
+à l'avance.
+
+## L'équipe
+### Le défi
+Le défi qui nous a été attribué, à moi et mon équipe, était la gestion de la végétation
+à proximité des lignes électriques.
+
+### Les membres
+J'ai travaillé en équipe avec deux personnes qui venaient de créer une startup
+qui faisait du matériel technologique de surveillance et gestion des jardins,
+un élagueur, une représentante de l'union des entreprises du paysage, et un
+spécialiste de la gestion de patrimoines arborés.
+
+Les deux créateurs de startup et moi étions les seuls à avoir un profil technique/informatique.
+
+## Le projet
+Nous avons décidé, pour innover dans le domaine, de ne pas seulement proposer un
+projet différent d'élagage au bord des lignes, comme c'est fait actuellement,
+mais de proposer une manière nouvelle et écologique de gérer le patrimoine
+biologique au bord des lignes.
+
+### Situation actuelle
+Aucun arbre ne doit jamais toucher une ligne électrique haute tension, sous
+peine de risquer de faire un court circuit, et de plonger des habitations dans le noir.
+Hors ERDF possède de très longues portions de ligne bordées de végétation, et
+doit ainsi faire
+élaguer en France chaque année 30000 kilomètres le long de ses lignes.
+
+## Résultat
+
+![Réception du prix "créativité" lors de la conférence de fin du DRIM'in Saclay](images/photo-drimin.jpg)
 
 # Hackathon ERDF
 Les 7 et 8 juillet, j’ai eu l’occasion de participer à un évènement exceptionnel
