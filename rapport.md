@@ -722,10 +722,60 @@ peine de risquer de faire un court circuit, et de plonger des habitations dans l
 Hors ERDF possède de très longues portions de ligne bordées de végétation, et
 doit ainsi faire
 élaguer en France chaque année 30000 kilomètres le long de ses lignes.
+Chaque mètre à élaguer est facturé entre 1,7 et 3 €, auxquels il faut ajouter le
+prix de mise hors tension des lignes, de supervision de chantier et d'inventaire.
+
+L'élagage actuel est souvent "brutal", à savoir que l'on coupe simplement
+les branches qui dépassent, sans considération pour le type de végétation et ce
+qui est bon pour chaque arbre. Cela coûterait trop cher.
+
+Les élagueurs n'aiment en général pas travailler avec ERDF.
+
+### Solution proposée
+Nous avons travailler sur une solution qui soit à la fois moins coûteuse et plus
+écologique, pour la proposer à ERDF dans le cadre du concours.
+
+![Schéma de fonctionnement de la plateforme de gestion de la végétation.](images/projet-drimin.pdf)
+
+Nous proposons la création d'une platforme informatique de gestion et
+observation de la végétation, accompagnée de la création d'espaces naturels
+adaptés autours des lignes.
+
+#### Création de zones de végétations adaptées
+Le but est de progressivement créer des espaces d'observation de la nature
+autour des lignes. Dans ces espaces une végétation spécifique sera plantée,
+qui ne sera pas dangereuse pour les lignes et ne nécessitera pas d'élagages.
+Les communes pourront participer à la création de ces espaces, dans le but de
+faire découvrir la nature qui les entoure à leurs administrés. Ces espaces
+pourront recevoir la visite d'écoles et d'associations d'enthousiastes de la
+nature.
+
+Elles contribueront également à changer l'image plutôt négative d'ERDF auprès
+des écologistes.
+
+#### Création d'une plateforme de récolte et gestion des données
+Dans la plupart des zones, l'élagage restera nécessaire. Nous
+proposons la pause de capteurs, qui permettent en même temps de relever des
+données sur l'écosystème entourant les lignes et de détecter les situations
+dangereuses où les arbres s'approchent des lignes. Encore une fois, ERDF
+n'est pas le seul gagnant.
+
+Les données relevées par ces capteurs seront relevées sur une plateforme publiquement
+accessible, sur laquelle les citoyens pourront eux-mêmes signaler les
+situations dangereuses lorsqu'ils en croisent. Ainsi, il deviendra facile de signaler
+un arbre de son jardin qui s'approche dangereusement des lignes et de le faire
+élaguer par ERDF.
 
 ## Résultat
+Le jury a été enthousiasmé par notre présentation, et nous a remis le
+"prix de la créativité" du concours.
 
 ![Réception du prix "créativité" lors de la conférence de fin du DRIM'in Saclay](images/photo-drimin.jpg)
+
+Cependant, mettre en place un tel plan demande une coordination de plusieurs
+services chez ERDF, et le changement de plusieurs pratiques actuelles.
+On ne peut ainsi pas véritablement s'attendre à la mise en place du projet
+dans un futur proche.
 
 # Hackathon ERDF
 Les 7 et 8 juillet, j’ai eu l’occasion de participer à un évènement exceptionnel
