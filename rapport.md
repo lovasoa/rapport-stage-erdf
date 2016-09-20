@@ -1132,12 +1132,40 @@ SELECT
 ```
 
 ### Résultat
+![Ensemble, refroidissons la planète: résultat final du projet pingouins](images/pingouins.png)
 Sur cette capture d'écran, la souris survole le poste source "Clichy", et les informations associées sont affichées: on voit que le poste délivre environ 2MW de plus que la puissance souscrite qui lui est associée.
 
-![Ensemble, refroidissons la planète: résultat final du projet pingouins](images/pingouins.png)
-
 ## WBO, tableau blanc interactif
+Les *conducteurs* [^conducteur] ont souvent besoin de communiquer entre eux,
+pour se tenir au courant de la situation du réseau rapidement, signaler les
+situations à risque, communiquer sur ce qu'il se passe, demander aux autres
+de faire quelque chose ou au contraire de ne pas toucher à une partie du réseau.
+Pour la communication entre ses collaborateurs, ERDF utilise un système de messagerie
+instantannée propriétaire d'IBM, accessible sur tous les postes reliés à l'intranet.
+Cependant, ce système n'est pas vraiment fait pour conserver des informations sur
+la durée, les mettre en page, ou les accompagner de schémas.
+
+[^conducteur]: conducteur : agent de conduite du réseau, travaillant à l'ACR
+
+J'avais déjà réalisé, comme projet personnel, un tableau blanc interactif en
+ligne et en temps réel, que j'avais nommé [WBO](https://github.com/lovasoa/whitebophir).
+En en parlant avec le directeur de l'ACR, et avec des conducteurs, ils ont
+été très enthousiasmés, et m'ont demandé de l'améliorer et de le déployer sur
+l'intranet.
+
 ![Tableau blanc interactif](images/wbo.png)
+
+Le projet est constitué d'un backend en [node.js](https://nodejs.org/en/) qui
+utilise des
+[websockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+pour communiquer avec un front-end en javascript. Le front-end affiche le
+tableau en temps réel dans le navigateur en SVG et permet de dessiner et écrire
+dessus. Chaque outil est indépendant, codé en javascript et assez simple.
+Le cœur, qui gère la distribution des évènements de dessin et la communication
+avec le serveur, ne fait que 400 lignes de javascript.
+
+Dans le cadre de mon stage, j'ai notemment rendu le code compatible avec Internet Explorer
+9, traduit l'interface en français, et ajouté un outil de dessin de lignes droites. 
 
 # Conclusion
 ## Résumé du travail accompli
