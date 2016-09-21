@@ -53,7 +53,18 @@ filiale d’EDF chargée du transport de l’électricité. RTE se charge de tra
 l'électricité à très haute tension depuis son lieu de production sur de longues
 distances, jusqu'à l'entrée en zone urbaine.
 
-En 2008 est créée la filiale **ERDF**,
+En 2008 est créée la filiale **ERDF**, chargée de gérer de réseau de **distribution**.
+ERDF s'occuppe de la maintenance et de l'exploitation de toute la partie du réseau
+basse et moyenne tension, mais elle n'en est pas propriétaire. Ce sont les collectivités
+locales qui possèdent les lignes, et sont libres de choisir une entreprise de
+distribution pour les gérer. Cependant, ERDF est un situation de quasi-monopole,
+et 95% des lignes sont sous sa responsabilité. C'est notemment ERDF qui intervient
+sur les lignes lorsqu'un incident survient, et qui modifie en temps réel la structure
+du réseau (à l'aide d'interrupteurs, dont certains sont télécommandés) pour l'adapter
+à la demande en énergie, aux travaux en cours sur le réseau, et aux pannes.
+
+Le 31 mai 2016, après la fin de mon stage, l'entreprise a changé de nom, et s'appelle
+désormais **Enedis**.  
 
 ### L’ACR
 ## Glossaire
