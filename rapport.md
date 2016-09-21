@@ -57,7 +57,7 @@ En 2008 est créée la filiale **ERDF**, chargée de gérer de réseau de **dist
 ERDF s'occuppe de la maintenance et de l'exploitation de toute la partie du réseau
 basse et moyenne tension, mais elle n'en est pas propriétaire. Ce sont les collectivités
 locales qui possèdent les lignes, et sont libres de choisir une entreprise de
-distribution pour les gérer. Cependant, ERDF est un situation de quasi-monopole,
+distribution pour les gérer. Cependant, ERDF est dans une situation de quasi-monopole,
 et 95% des lignes sont sous sa responsabilité. C'est notemment ERDF qui intervient
 sur les lignes lorsqu'un incident survient, et qui modifie en temps réel la structure
 du réseau (à l'aide d'interrupteurs, dont certains sont télécommandés) pour l'adapter
@@ -66,15 +66,18 @@ du réseau (à l'aide d'interrupteurs, dont certains sont télécommandés) pour
 Le 31 mai 2016, après la fin de mon stage, l'entreprise a changé de nom, et s'appelle
 désormais **Enedis**.  
 
-### L’ACR
 ## Glossaire
 #### ACR
-**A**gence de **C**onduite **R**égionale, service d’ERDF chargé de surveiller en temps réel
+Agence de Conduite Régionale, service d’ERDF chargé de surveiller en temps réel
 l'état du réseau électrique, et de s’assurer que les clients soient alimentés
 en permanence, même lorsqu'un incident survient. Pour cela, elle peut visualiser
 la totalité du réseau de la région dont elle a la charge, peut actionner certains
 interrupteurs à distance, et est en contact téléphonique avec les agents du terrain
 pour manœuvrer les parties du réseau qui ne sont pas télécommandées.
+
+Il y a environ une ACR par région, avec l'exception notable de l'Île de France,
+divisée en trois: *Île de France Ouest*, *Paris*, et *Île de France Est* où
+j'ai effectué mon stage.  
 
 ### Les agents
 #### Conducteur
@@ -94,7 +97,7 @@ mais n’est pas piloté par l'ACR.
 
 #### HTA
 Haute tension de *type A*, entre 1 et 50 kilovolts. C'est à cette tension
-qu’opère le réseau électrique piloté par ERDF.
+qu’opère le réseau électrique dont l'ACR est en charge.
 
 #### HTB
 Haute tension de *type B*, au delà de 50 kilovolts. C'est à cette tension qu’opère
