@@ -32,7 +32,7 @@ et les personnes qu’il m’a permis de rencontrer.
 
 Je remercie également Yann Le Hervé, mon collègue programmeur au sein de l’ACR,
 pour son aide quotidienne, ses réponses toujours rapides et précises à toutes
-mes questions sur le réseau élecrique et la srtucture des bases de données dont
+mes questions sur le réseau électrique et la structure des bases de données dont
 j’avais besoin.
 
 Enfin, je remercie toute l’équipe de l’ACR, et en particuliers les préparateurs
@@ -93,7 +93,7 @@ le réseau électrique piloté par le **RTE**.
 #### Poste source
 Poste de transformation de la HTB vers la HTA. Un poste source contient plusieurs
 ouvrages différents. Il est installé sur un terrain de plusieurs milliers de mètres
-carrés. L'intensité du courant qui transite par un poste source varie en permanance
+carrés. L'intensité du courant qui transite par un poste source varie en permanence
 en fonction de la demande en électricité, pour une puissance totale de plusieurs
 dizaines de mégawatts, alimentant des milliers de clients.
 L’ACR d'Île de France Est contrôle 83 postes sources, sur quatre départements.
@@ -107,14 +107,14 @@ l’ACR.
 #### Départ
 Une ligne électrique sortant d’un poste source. Chaque poste source contient de quelques
 départs à quelques dizaines de départs. Les départs peuvent le plus souvent être
-*repris* les uns par les autres, c'est-à-dire qu'une portion de réseau faisaint
+*repris* les uns par les autres, c'est-à-dire qu'une portion de réseau faisant
 partie d'un départ peut être alimentée par un autre départ lorsqu'un incident
 survient. Pour chaque départ, on dispose d’une télémesure.
 
 #### Poste HTA-BT
 Poste de transformation de la HTA vers la basse tension. Ils sont beaucoup moins
 imposants que les postes sources (quelques mètres carrés, quelques centaines de
-kilowatts), mais beacoup plus nombreux (quelques centaines de milliers en Île-de-France Est).
+kilowatts), mais beaucoup plus nombreux (quelques centaines de milliers en Île-de-France Est).
 On ne dispose pas aujourd’hui de télémesures indiquant en temps réel la puissance
 de ces postes.
 
@@ -126,13 +126,13 @@ que ce qui vous sera utile pour la poursuite de la lecture de ce rapport...
 Le but de cette partie n’est pas de faire une liste exhaustive des outils informatiques
 et bases de données d’ERDF, dont je ne maîtrise qu’une infime partie, mais d’expliquer
 comment est organisé la partie du système d’informations qui concerne l’ACR, et
-avec laquelle j’ai été ammené à interagir. Cela évitera d’avoir à redéfinir le
+avec laquelle j’ai été amené à interagir. Cela évitera d’avoir à redéfinir le
 rôle de chaque outil chaque fois qu’il sera mentionné.
 
 
 ### Les données
 
-On parle ici des données récoltées sur le réseau éléctrique en temps réel (comme les valeurs des télémesures,
+On parle ici des données récoltées sur le réseau électrique en temps réel (comme les valeurs des télémesures,
 les incidents, les changements de structure),
 mais aussi des données qui se mettent à jour moins souvent comme la liste des clients, la liste
 des ACR de France, le schéma normal, le nom des postes sources et de leurs départs.
@@ -148,7 +148,7 @@ par les configurateurs sont stockées et traitées sur le **SIT-R**.
 Le *SIT-R* exporte certaines de ses données régulièrement et automatiquement
 sur la base de données MySQL **EtaReso**, et c'est cette base qui est utilisée par les
 applications. Par exemple, les données de toutes les télémesures du réseau
-sont enregistrées, et sauvegardées avec un interval de 10 minutes sur *EtaReso*.
+sont enregistrées, et sauvegardées avec un intervalle de 10 minutes sur *EtaReso*.
 
 Toutes les données ne sont pas dans *EtaReso*, et la structure de la base de données
 n'est pas documentée, mais un graphe complet des tables et de leurs relations
@@ -273,7 +273,7 @@ ERDF doit régulièrement *souscrire* auprès de RTE à une certaine puissance p
 chacun de ses postes sources. Cela permet à RTE d'organiser efficacement
 le transport de l'électricité, en connaissant à l'avance les besoins
 de distribution en électricité.
-Mais cela demande à ERDF de spécifier cette consomation future.
+Mais cela demande à ERDF de spécifier cette consommation future.
 Si ERDF souscrit à une puissance trop faible, et qu'un poste source utilise
 finalement plus que ce qui avait été spécifié, alors ERDF paiera beaucoup plus
 cher tous les mégawatts utilisés qui n'avaient pas été souscrits.
@@ -308,10 +308,10 @@ temps réel, il faut avant tout pouvoir examiner les données du passé, trouver
 quelles données sont pertinentes, et comment corréler des facteurs
 extérieurs avec la donnée que l'on cherche à prédire.
 
-EN l'occurence, le seul facteur extérieur auquel je me suis intéressé est la météo,
+En l'occurrence, le seul facteur extérieur auquel je me suis intéressé est la météo,
 et en particulier la température extérieure. Ce pour deux raisons:
 
- * les courbes de charges (puissance délivrée en fonction du temps) sont très **fortemenent
+ * les courbes de charges (puissance délivrée en fonction du temps) sont très **fortement
 auto-corrélées**. Elles sont presque périodiques; la consommation à l'instant
 *t* dépend beaucoup de *t* et de la consommation à l'instant *t-1*.
  * par expérience des employés de l'ACR, on sait que la consommation dépend de manière
@@ -364,7 +364,7 @@ le résultat des différentes lignes de retour de la requête pour en faire une 
 
 Un second problème (certainement lié au format de la table aussi), est que les
 requêtes sont parfois très lentes. La base de données contient beaucoup de données,
-et est utilisée presque en parmanence par les autres applications de l'APR. Il n'est
+et est utilisée presque en permanence par les autres applications de l'APR. Il n'est
 ainsi pas vraiment envisageable de se servir de cette table directement lorsque
 l'on a besoin de grosses quantités de données pour générer les prévisions, ni
 même dans un premier temps pour étudier les données.
@@ -428,7 +428,7 @@ CREATE TABLE `telemesures` (
 Comme on le voit, la table telemesures sert non seulement à stocker les valeurs
 extraites d'EtaReso, mais aussi les valeurs prédites par mon modèle.
 Cela rend très facile l'utilisation "récursive" du modèle pour avoir des prédictions
-sur de plus longues durées, par exemple. Le modèle peut prendre en entrée indiféremment
+sur de plus longues durées, par exemple. Le modèle peut prendre en entrée indifféremment
 des valeurs effectivement mesurées et des valeurs qui ont elles-mêmes été prédites.
 
 J'ai écrit deux scripts python pour l'import des données respectivement d'EtaReso
@@ -452,8 +452,8 @@ une analyse, et assez peu pour qu'elles tiennent en mémoire et que les calculs 
 
 ### Évolution de la puissance fournie au cours de l'année
 
-![Puissance fournie en fonction du temps. L'abscisse est l'index du point dans la liste de données, avec un point toutes les 3 heures. On voit la baisse de consommation en été et la différénce nuit/jour.](images/puissance-temps.png)
-**Puissance fournie en fonction du temps**. L'abscisse est l'index du point dans la liste de données, avec un point toutes les 3 heures. On voit la baisse de consommation en été et la différénce nuit/jour.
+![Puissance fournie en fonction du temps. L'abscisse est l'index du point dans la liste de données, avec un point toutes les 3 heures. On voit la baisse de consommation en été et la différence nuit/jour.](images/puissance-temps.png)
+**Puissance fournie en fonction du temps**. L'abscisse est l'index du point dans la liste de données, avec un point toutes les 3 heures. On voit la baisse de consommation en été et la différence nuit/jour.
 
 ### Évolution au cours de la journée
 
@@ -463,7 +463,7 @@ J'ai analysé l'évolution de la **puissance en fonction du jour de la semaine**
 ### Évolution de la puissance fournie au fonction de la température extérieure
 
 ![Puissance fournie en fonction de la température extérieure en degrés.](images/puissance-temperature.png)
-**Puissance fournie en fonction de la température extérieure** en degrés. On voit deux groupes de points correspondants aux valeurs du jour (plus hautes) et de la nuit (plus basses). On voit qu'en dessous de 15 degrés, la consommation est à peu près inversement proportionnelle à la température. Au dessus, elle est environ proportionnelle, mais avec un coefficient de proportionnalités (nombre de Mégawatts générés par degré supplémentaire) beaucoup plus faible.
+**Puissance fournie en fonction de la température extérieure** en degrés. On voit deux groupes de points correspondants aux valeurs du jour (plus hautes) et de la nuit (plus basses). On voit qu'en dessous de 15 degrés, la consommation est à peu près inversement proportionnelle à la température. Au dessus, elle est environ proportionnelle, mais avec un coefficient de proportionnalité (nombre de Mégawatts générés par degré supplémentaire) beaucoup plus faible.
 
 ![Puissance en fonction de la température extérieure, sous forme d'histogramme](images/histo-temp.png)
 **Puissance en fonction de la température** extérieure sous forme d'histogramme
@@ -514,7 +514,7 @@ futurs utilisateurs en connaissent les limites.
 
 ## Déploiement
 J'ai pris quelques jours de développement pour finaliser et déployer le modèle.
-J'ai commendé un serveur à *Azure*, le service informatique interne d'ERDF qui
+J'ai commandé un serveur à *Azure*, le service informatique interne d'ERDF qui
 propose des serveurs CentOS avec un accès `root` accessibles sur tout l'intranet ERDF.
 
 J'y ai installé MariaDB, python et ses bibliothèque scientifiques, apache et
@@ -535,7 +535,7 @@ indiquant des prévisions plutôt correctes.
 
 Cependant, j'aurais aimé pouvoir y consacrer beaucoup plus de temps. Cette mission
 aurait mérité d'y travailler à plein temps, et avec des spécialistes, et elle
-n'a finalement été que l'un de mes différents projets de stage. J'aurais notemment
+n'a finalement été que l'un de mes différents projets de stage. J'aurais notamment
 aimé avoir l'occasion de passer du temps à la validation du modèle, et au calcul
 de paramètres optimaux, ainsi qu'à la quantification de l'influence de la météo
 sur la consommation.
@@ -544,7 +544,7 @@ L'application a ainsi encore une grande marge de progression, depuis l'analyse
 plus poussée des données
 initiales pour fournir de meilleures prévisions, jusqu'à la réalisation d'une interface
 graphique plus ergonomique, en passant par l'optimisation des performances.
-On pourrait aussi envisager de nouvelles fonctionalités, comme la prévision sur
+On pourrait aussi envisager de nouvelles fonctionnalités, comme la prévision sur
 le long terme, la catégorisation des postes sources par type de courbe de charge
 (pour l'instant, la prédiction des valeurs d'un poste n'utilise l'historique
 que de ce poste là), ou même la détection de fraudes en analysant les anomalies
@@ -558,7 +558,7 @@ qui m'a beaucoup manqué: une manière consistante, simple et documentée d'acc�
 aux données générées et stockées par ERDF.
 
 J'ai donc passé une petite partie de mon temps de stage, à chaque fois que j'en
-avais besoin, à travailler sur des APIs simples et documentées, acessibles partout
+avais besoin, à travailler sur des APIs simples et documentées, accessibles partout
 dans l'intranet d'ERDF, et à essayer de faire la publicité de mes APIs, et d'une
 telle pratique en générale auprès des autres développeurs et informaticiens que j'ai
 pu rencontrer chez ERDF.
@@ -686,7 +686,7 @@ peuvent contribuer.
 # DRIM'IN Saclay: travail sur l’élagage à proximité des lignes électriques
 
 J'ai eu l'occasion, grâce à mon maître de stage, de participer pendant trois
-jours à la *convention d'Open Inovation* [Drim'in Saclay](http://www.driminsaclay.com/le-concept),
+jours à la *convention d'Open Innovation* [Drim'in Saclay](http://www.driminsaclay.com/le-concept),
 organisée notemment par la chambre de commerce et de l'industrie sur le campus de l'École
 polytechnique.
 
@@ -737,9 +737,9 @@ Nous avons travailler sur une solution qui soit à la fois moins coûteuse et pl
 
 ![Schéma de fonctionnement de la plateforme de gestion de la végétation.](images/projet-drimin.pdf)
 
-Nous proposons la création d'une platforme informatique de gestion et
+Nous proposons la création d'une plateforme informatique de gestion et
 observation de la végétation, accompagnée de la création d'espaces naturels
-adaptés autours des lignes.
+adaptés autour des lignes.
 
 #### Création de zones de végétations adaptées
 Le but est de progressivement créer des espaces d'observation de la nature
@@ -779,7 +779,7 @@ dans un futur proche.
 
 # Hackathon ERDF
 Les 7 et 8 juillet, j’ai eu l’occasion de participer à un évènement exceptionnel
-au sein d’ERDF: le premier *hackathon* interne nationnal d’ERDF.
+au sein d’ERDF: le premier *hackathon* interne national d’ERDF.
 
 On appelle habituellement hackathon un rassemblement de jeunes développeurs qui
 travaillent par petite équipe durant un week-end entier, généralement le jour et
@@ -821,7 +821,7 @@ L'un des points à améliorer de ces informations mis en avant par mon supérieu
 était la manière dont les techniciens trouvent les postes, et les informations
 concernant les postes auxquelles ils ont accès au moment de l'intervention.
 
-Les deux problèmes principeux étant que:
+Les deux problèmes principaux étant que:
 
  * les techniciens ont parfois du mal à **trouver physiquement le poste**
 une fois arrivés à l'adresse à laquelle on leur a indiqué que l'intervention
@@ -939,7 +939,7 @@ dans le dépôt [lovasoa/HTAgBT](https://github.com/lovasoa/HTAgBT).
 
 # Méthodes innovantes de visualisation de données
 Mon maître de stage était très intéressé par l'innovation au sein de l'ACR en
-général, et les méthodes innovantes de visualisationde données en particulier.
+général, et les méthodes innovantes de visualisation de données en particulier.
 
 J'ai ainsi été amené à réaliser deux applications de taille modeste, mais au
 rendu final assez intéressant, destinées à offrir une manière plus intuitive,
@@ -972,7 +972,7 @@ très rapidement les pics de consommation et la situation globale.
 L'horloge prend la forme d'un disque noir. Seule l'aiguille des heures est
 représentée. Toutes les 5 minutes, l'aiguille laisse une nouvelle trace en forme
 de barre sur le cadran. La taille et la couleur de la trace dépendent de la
-puissance distribuée. Toutes les douzes heures, à midi et à minuit, les
+puissance distribuée. Toutes les douze heures, à midi et à minuit, les
 anciennes traces sont effacées.
 
 Le résultat est comme suit.
@@ -1016,7 +1016,7 @@ graphique amusant dans l'objectif de sensibiliser les ménages au lien entre leu
 consommation énergétique et le réchauffement climatique. L'outil japonais consiste en un
 simple écran sur lequel est présentée une petite animation représentant cinq pingouins
 sur une petite banquise. Lorsque la consommation du ménage augmente, la banquise
-virtuelle fond, et les pingoins tombent à l'eau un par un. L'outil était simple et
+virtuelle fond, et les pingouins tombent à l'eau un par un. L'outil était simple et
 marquant, et avait plu partout où il avait été présenté.
 
 Notre projet était de produire une représentation dynamique du même type, avec la
@@ -1176,7 +1176,7 @@ installé node.js.
 ## Travail accompli et compétences acquises
 Le stage ne s'est pas déroulé comme je l'imaginais. Je pensais passer tout
 mon temps sur le développement du modèle de prédiction des courbes de charge,
-et ça n'a finalement occuppé qu'une partie de mon stage. Cela signifie que
+et ça n'a finalement occupé qu'une partie de mon stage. Cela signifie que
 le modèle n'est pas aussi abouti que ce que j'espérais, mais cela signifie
 aussi que j'ai eu le temps de travailler sur de nombreux autres projets intéressants
 et de rencontrer beaucoup de gens.
@@ -1219,4 +1219,4 @@ l'ACR dans laquelle j'étais venu faire mon stage.
 J'envisage aujourd'hui sérieusement, parmi d'autres options, de candidater dans
 l'entreprise pour y commencer ma carrière. L'usage de l'informatique au sein
 d'ERDF se développe très vite, et participer à cette évolution est passionnant
-et motivant. 
+et motivant.
