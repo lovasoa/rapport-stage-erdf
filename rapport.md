@@ -139,17 +139,17 @@ que ce qui vous sera utile pour la poursuite de la lecture de ce rapport...
 ## Organisation, stockage, et traitement des données chez ERDF
 Le but de cette partie n’est pas de faire une liste exhaustive des outils informatiques
 et bases de données d’ERDF, dont je ne maîtrise qu’une infime partie, mais d’expliquer
-comment est organisé la partie du système d’informations qui concerne l’ACR, et
+comment est organisée la partie du système d’informations qui concerne l’ACR, et
 avec laquelle j’ai été amené à interagir. Cela évitera d’avoir à redéfinir le
 rôle de chaque outil chaque fois qu’il sera mentionné.
 
 
 ### Les données
 
-On parle ici des données récoltées sur le réseau électrique en temps réel (comme les valeurs des télémesures,
-les incidents, les changements de structure),
+On parle ici des données récoltées sur le réseau électrique en temps réel
+(comme les valeurs des télémesures, les incidents, les changements de structure),
 mais aussi des données qui se mettent à jour moins souvent comme la liste des clients, la liste
-des ACR de France, le schéma normal, le nom des postes sources et de leurs départs.
+des ACR de France, le schéma normal du réseau, le nom des postes sources et de leurs départs.
 
 ### Système d'accès aux données
 
@@ -161,7 +161,7 @@ par les configurateurs sont stockées et traitées sur le **SIT-R**.
 
 Le *SIT-R* exporte certaines de ses données régulièrement et automatiquement
 sur la base de données MySQL **EtaReso**, et c'est cette base qui est utilisée par les
-applications. Par exemple, les données de toutes les télémesures du réseau
+applications développées à l'ACR. Par exemple, les données de toutes les télémesures du réseau
 sont enregistrées, et sauvegardées avec un intervalle de 10 minutes sur *EtaReso*.
 
 Toutes les données ne sont pas dans *EtaReso*, et la structure de la base de données
@@ -194,7 +194,7 @@ J’ai été recruté au sein de l’ACR d'Île-de-France Est en tant que stagia
 de données), dans le but de développer un algorithme de prédiction des valeurs
 de puissance des postes source.
 
-J'ai pour cela utilisé un modèle fondé sur les **SVM** (machine à vecteur de support),
+J'ai pour cela utilisé un modèle
 implémenté dans le langage Python, et dont les résultats sont visualisables dans
 une interface web.
 
@@ -202,8 +202,8 @@ Mais mon stage m’a aussi poussé à découvrir de nombreuses autres problémat
 liées à l'informatique chez ERDF, et à répondre à certaines d’entre elles.
 
 Je présente donc dans ce rapport toutes les missions les plus importantes sur
-lesquelles j’ai travaillé, même si beaucoup ne sont pas en rapport direct avec
-mon sujet de stage initial.
+lesquelles j’ai travaillé, et les évènements auxquels j'ai participé,
+même si beaucoup ne sont pas en rapport direct avec mon sujet de stage initial.
 
 # Première mission: Ariane, site de présentation des évolutions de l’outil de conduite du réseau
 
