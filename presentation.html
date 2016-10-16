@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Ophir LOJKINE">
+  <title>Data science et développement web chez ERDF</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">Data science et développement web chez ERDF</h1>
+  <h2 class="author">Ophir LOJKINE</h2>
+  <h3 class="date">Été 2015</h3>
+</section>
+<section id="TOC">
+<ul>
+<li><a href="#/introduction">Introduction</a><ul>
+<li><a href="#/contexte">Contexte</a></li>
+<li><a href="#/missions">Missions</a></li>
+</ul></li>
+<li><a href="#/prévision-de-la-consommation-électrique">Prévision de la consommation électrique</a><ul>
+<li><a href="#/données-disponibles">Données disponibles</a></li>
+<li><a href="#/développement-dun-système-dunification-des-données">Développement d'un système d'unification des données</a></li>
+<li><a href="#/analyse-des-données">Analyse des données</a></li>
+<li><a href="#/conclusion">Conclusion</a></li>
+</ul></li>
+<li><a href="#/autres-missions">Autres missions</a><ul>
+<li><a href="#/hackathon">Hackathon</a></li>
+<li><a href="#/pingouins">pingouins</a></li>
+</ul></li>
+<li><a href="#/conclusion-1">Conclusion</a><ul>
+<li><a href="#/ce-que-ce-stage-ma-apporté">Ce que ce stage m'a apporté</a></li>
+<li><a href="#/futur">Futur</a></li>
+</ul></li>
+</ul>
+</section>
+
+<section><section id="introduction" class="titleslide slide level1"><h1>Introduction</h1></section><section id="contexte" class="slide level2">
+<h1>Contexte</h1>
+<ul>
+<li>ERDF, distributeur d'électricité et leader</li>
+<li>Agence de conduite régionale (ACR)
+<ul>
+<li>intervention en temps réel</li>
+<li>surveillance du réseau</li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/marche_energie.jpg" alt="Rôle d&#39;ERDF" /><figcaption>Rôle d'ERDF</figcaption>
+</figure>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/carte_DIR.gif" alt="Carte des 8 directions inter-régionales" /><figcaption>Carte des 8 directions inter-régionales</figcaption>
+</figure>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/ACR_IDF.jpg" alt="Carte des 3 ACR d&#39;Île de France" /><figcaption>Carte des 3 ACR d'Île de France</figcaption>
+</figure>
+</section><section id="missions" class="slide level2">
+<h1>Missions</h1>
+<ul>
+<li>Ariane</li>
+<li><strong>epythie</strong>
+<ul>
+<li>analyse de données</li>
+<li>réalisation</li>
+</ul></li>
+<li>DRIM'IN</li>
+<li><strong>Hackathon</strong></li>
+<li><strong>pingouins</strong></li>
+</ul>
+</section></section>
+<section><section id="prévision-de-la-consommation-électrique" class="titleslide slide level1"><h1>Prévision de la consommation électrique</h1></section><section id="données-disponibles" class="slide level2">
+<h1>Données disponibles</h1>
+<ul>
+<li>Données météofrance (sur FTP)</li>
+<li>Relevés télémesures (sur BDD EtaReso)</li>
+</ul>
+</section><section id="développement-dun-système-dunification-des-données" class="slide level2">
+<h1>Développement d'un système d'unification des données</h1>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/fichiers_epythie.png" alt="Organisation du code epythie" /><figcaption>Organisation du code epythie</figcaption>
+</figure>
+</section><section id="analyse-des-données" class="slide level2">
+<h1>Analyse des données</h1>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/puissance-temps.png" alt="Dépendance au temps" /><figcaption>Dépendance au temps</figcaption>
+</figure>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/puissance-temperature.png" alt="Dépendance à la température" /><figcaption>Dépendance à la température</figcaption>
+</figure>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/resultats-model-eval.png" alt="Résultats du modèle" /><figcaption>Résultats du modèle</figcaption>
+</figure>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/comparaison_prediction_reel.png" alt="Résultats du modèle" /><figcaption>Résultats du modèle</figcaption>
+</figure>
+</section><section id="conclusion" class="slide level2">
+<h1>Conclusion</h1>
+<p>Le modèle est bon, mais ne prend pas en compte <strong>la structure du réseau</strong>.</p>
+<p>Les prédictions ne sont pas utilisables hors du schéma normal.</p>
+</section></section>
+<section><section id="autres-missions" class="titleslide slide level1"><h1>Autres missions</h1></section><section id="hackathon" class="slide level2">
+<h1>Hackathon</h1>
+<ul>
+<li>Deux jours pour un projet</li>
+<li>Expérience humaine et technique</li>
+<li>Nouvelles technologies
+<ul>
+<li>AngularJS</li>
+<li>APIs en PHP</li>
+</ul></li>
+</ul>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/ophyr.png" alt="Outil développé" /><figcaption>Outil développé</figcaption>
+</figure>
+</section><section id="pingouins" class="slide level2">
+<h1>pingouins</h1>
+<ul>
+<li>Visualisation innovante</li>
+<li>Utilisation de la bibliothèque JS <strong>leaflet</strong></li>
+<li>Design des pingoins par un conducteur réseau</li>
+</ul>
+</section><section class="slide level2">
+
+<figure>
+<img src="images/pingouins.png" alt="Capture d&#39;écran de l&#39;outil" /><figcaption>Capture d'écran de l'outil</figcaption>
+</figure>
+</section></section>
+<section><section id="conclusion-1" class="titleslide slide level1"><h1>Conclusion</h1></section><section id="ce-que-ce-stage-ma-apporté" class="slide level2">
+<h1>Ce que ce stage m'a apporté</h1>
+<ul>
+<li>technique
+<ul>
+<li>AngularJS</li>
+<li>Analyse de données</li>
+</ul></li>
+<li>Mais <strong>surtout</strong></li>
+<li>connaissance de l'entreprise</li>
+<li>gestion des relations humaines</li>
+<li>organisation du travail</li>
+</ul>
+</section><section id="futur" class="slide level2">
+<h1>Futur</h1>
+<ul>
+<li>Les pingoins sont toujours utilisés</li>
+<li>L'outil de prévision va peut-être être repris par le national</li>
+<li>J'envisage de travailler dans le même domaine</li>
+</ul>
+</section><section class="slide level2">
+
+<p><strong>Merci</strong> de votre attention. <em>Des questions ?</em></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Transition style
+        transition: 'concave', // none/fade/slide/convex/concave/zoom
+        // Parallax background image
+        parallaxBackgroundImage: 'images/fond.jpg', // e.g. "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'"
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1000,
+        height: 700,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
